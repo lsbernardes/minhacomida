@@ -93,9 +93,6 @@ input[type='submit'] {
   font-family: inherit;
   font-size: 0.75rem;
 }
-/* .box-add * {
-  margin: 10px;
-} */
 .close {
   position: absolute;
   top: 10px;
@@ -124,10 +121,6 @@ input[type='submit'] {
   font-size: 1.5rem;
 }
 .alert {
-  /* position: absolute;
-  bottom: 25%;
-  left: 40%;
-  text-align: center; */
   display: inline;
   margin-left: 15%;
   background-color: rgb(242, 254, 108);
