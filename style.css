@@ -7,6 +7,9 @@ body {
   min-height: 100vh;
   background: linear-gradient(to top, #cf99ff, #6d00cc);
   font-family: Poppins;
+  position: relative;
+  /* display: flex;
+  flex-direction: flex-start; */
 }
 
 .nav {
@@ -27,8 +30,8 @@ body {
   padding: 3rem;
   min-height: 70vh;
 }
-.box-bg {
-  position: fixed;
+.overlay {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -39,21 +42,41 @@ body {
   align-items: center;
   min-height: 70vh;
   background-color: rgba(0, 0, 0, 0.5);
-  /* border: 5px solid #ec492c; */
+  z-index: 5;
 }
 .box {
-  position: relative;
-  height: 70%;
-  width: 70%;
+  position: absolute;
+  top: 20%;
+  left: 18%;
+  width: 60%;
+  height: 60%;
   background-color: #cf99ff;
-  padding: 10px;
+  padding: 40px;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
 }
-.box-close {
+.box-add {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #6d00cc;
+  height: 80%;
+  margin: 10px;
+}
+/* .box-add * {
+  margin: 10px;
+} */
+.close {
   position: absolute;
   top: 10px;
   right: 10px;
+  font-size: 2rem;
   font-weight: bold;
   cursor: pointer;
+  padding: 0 8px;
 }
 .group {
   margin-top: 10px;
@@ -64,6 +87,7 @@ body {
 }
 .button {
   text-decoration: none;
+  min-width: 180px;
   padding: 30px 75px;
   border-radius: 5px;
   box-shadow: inset 0 0 0 0 #997cb3;
@@ -72,6 +96,36 @@ body {
   text-align: center;
   font-size: 1.5rem;
 }
+.btn-1 {
+  color: #fff;
+  background-color: rgb(80, 92, 104);
+}
+.btn-1:hover {
+  transition: 0.4s;
+  background-color: rgba(91, 105, 118, 1);
+}
+.btn-2 {
+  color: #000;
+  background-color: hsl(50, 100%, 50%);
+}
+.btn-2:hover {
+  transition: 0.4s;
+  background-color: hsla(50, 100%, 79%, 1);
+}
+.label {
+  margin: 20px;
+}
+.container h2 {
+  text-align: center;
+  color: aliceblue;
+  font-family: Poppins;
+}
+.hidden {
+  display: none;
+}
+
+/* MODELOS de botão em que o efeito desce
+
 .btn-1 {
   color: #fff;
   border: 4px solid rgb(80, 92, 104);
@@ -96,11 +150,4 @@ body {
   background-position: 0% 0%;
   color: rgb(80, 92, 104);
 }
-.container h2 {
-  text-align: center;
-  color: aliceblue;
-  font-family: Poppins;
-}
-.hidden {
-  display: none;
-}
+*/
