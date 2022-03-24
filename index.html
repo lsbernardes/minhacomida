@@ -31,15 +31,23 @@
     </div>
 
     <div class="box hidden">
-      <h2>Adicionar refeição</h2>
       <span class="close">&times;</span>
+      <h2>Adicionar refeição</h2>
       <div class="box-add">
         <form action="" class="form">
-          <label for="" class="label">Nome:</label> <br />
-          <input type="text" class="name" /> <br />
-          <label for="" class="label">Data:</label> <br />
-          <input type="text" class="data" /> <br />
-          <input type="submit" class="submit" /> <br />   
+          <input type="text" class="nome" placeholder="Nome da receita" />
+          <br />
+          <input type="text" class="data" placeholder="Data de início" /> <br />
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+            class="comentario"
+          ></textarea
+          ><br />
+          <input type="submit" class="submit" value="Adicionar" />
+          <div class="alert hidden">Refeição adicionada!</div>
         </form>
       </div>
     </div>

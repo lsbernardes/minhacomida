@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -47,24 +48,50 @@ body {
 .box {
   position: absolute;
   top: 20%;
-  left: 18%;
-  width: 60%;
+  left: 25%;
+  width: 50%;
   height: 60%;
   background-color: #cf99ff;
-  padding: 40px;
+  padding: 20px;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   z-index: 10;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
 }
 .box-add {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid #6d00cc;
+  justify-content: left;
+  /* border: 3px solid #6d00cc; */
   height: 80%;
   margin: 10px;
+  padding: 10px;
+}
+input,
+textarea {
+  margin: 5px;
+  padding: 17px;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+}
+input[type='text'] {
+  font-family: inherit;
+  height: 35px;
+  width: 350px;
+  background-color: #f9f9f9;
+}
+input[type='submit'] {
+  font-family: inherit;
+  padding: 10px 17px;
+  border: none;
+  margin: 10px;
+  border-radius: 10px;
+}
+.comentario {
+  width: 600px;
+  height: 150px;
+  font-family: inherit;
+  font-size: 0.75rem;
 }
 /* .box-add * {
   margin: 10px;
@@ -95,6 +122,17 @@ body {
   outline: none;
   text-align: center;
   font-size: 1.5rem;
+}
+.alert {
+  /* position: absolute;
+  bottom: 25%;
+  left: 40%;
+  text-align: center; */
+  display: inline;
+  margin-left: 15%;
+  background-color: rgb(242, 254, 108);
+  border-radius: 10px;
+  padding: 5px 30px;
 }
 .btn-1 {
   color: #fff;
