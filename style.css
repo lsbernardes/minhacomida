@@ -72,13 +72,19 @@ textarea {
   padding: 17px;
   border: 0;
   border-radius: 8px;
+  background-color: #dfdfdf;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
 }
 input[type='text'] {
   font-family: inherit;
   height: 35px;
   width: 350px;
-  background-color: #f9f9f9;
+  background-color: #dfdfdf;
+}
+input[type='text']:focus,
+textarea:focus {
+  outline: #6d00cc solid 2px;
+  background-color: #fff;
 }
 input[type='submit'] {
   font-family: inherit;
@@ -86,12 +92,19 @@ input[type='submit'] {
   border: none;
   margin: 10px;
   border-radius: 10px;
+  cursor: pointer;
+}
+input[type='submit']:hover {
+  transition: 0.4s;
+  background-color: #6d00cc;
+  opacity: 90%;
+  color: #fff;
 }
 .comentario {
   width: 600px;
   height: 150px;
   font-family: inherit;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 .close {
   position: absolute;
