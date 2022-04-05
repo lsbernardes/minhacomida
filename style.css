@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   min-height: 100vh;
   background: linear-gradient(to top, #cf99ff, #6d00cc);
@@ -12,11 +11,11 @@ body {
   /* display: flex;
   flex-direction: flex-start; */
 }
-
 .nav {
   display: grid;
   min-height: 10vh;
   align-content: center;
+  text-decoration: none;
 }
 .nav h1 {
   align-items: center;
@@ -25,11 +24,36 @@ body {
   font-family: Poppins;
 }
 .container {
+  /* border: 5px solid #2cec35; */
+  padding: 1rem;
+}
+.card__main {
+  min-height: 70vh;
   display: grid;
   place-content: center;
-  /* border: 5px solid #2cec35; */
-  padding: 3rem;
+  margin: 2rem auto;
+}
+.card {
+  padding: 0.7rem;
+  margin: 2rem auto;
+  width: 50rem;
+  max-width: 95%;
+  background-color: #cf99ff;
+  border-radius: 8px;
+  border-color: #000;
+  max-height: 80%;
   min-height: 70vh;
+}
+.card__siblings {
+  padding: 1rem;
+  margin: 0.1rem;
+  border-radius: 8px;
+}
+.card__busca {
+  background-color: #fff;
+  opacity: 0.5;
+  width: 100%;
+  font: inherit;
 }
 .overlay {
   position: absolute;
@@ -50,13 +74,14 @@ body {
   top: 20%;
   left: 25%;
   width: 50%;
-  height: 60%;
+  height: 62%;
   background-color: #cf99ff;
   padding: 20px;
   align-items: center;
   justify-content: left;
   z-index: 10;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
 }
 .box-add {
   display: flex;
@@ -75,18 +100,27 @@ textarea {
   background-color: #dfdfdf;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
 }
-input[type='text'] {
+.box input[type='text'] {
   font-family: inherit;
   height: 35px;
   width: 350px;
   background-color: #dfdfdf;
 }
-input[type='text']:focus,
+.box input[type='text']:focus,
 textarea:focus {
   outline: #6d00cc solid 2px;
   background-color: #fff;
 }
-input[type='submit'] {
+.data {
+  font-family: inherit;
+}
+.box input[type='date']::-webkit-calendar-picker-indicator {
+  width: 15px;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 10px;
+}
+.box input[type='submit'] {
   font-family: inherit;
   padding: 10px 17px;
   border: none;
@@ -94,7 +128,7 @@ input[type='submit'] {
   border-radius: 10px;
   cursor: pointer;
 }
-input[type='submit']:hover {
+.box input[type='submit']:hover {
   transition: 0.4s;
   background-color: #6d00cc;
   opacity: 90%;
