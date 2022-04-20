@@ -1,10 +1,21 @@
-// import receitas from './script.js';
-
 const busca = document.querySelector('.container__receitas');
 const campoBusca = document.querySelector('.card__busca');
 const containerReceitas = document.querySelector('.container__receitas');
+const maxReceitas = 5;
+const paginaAtual = 1;
 
-let receitas = [];
+const recuperarDados = () => {
+  const dados = localStorage.getItem('receitas');
+  if (!dados) return [];
+
+  const dadosParsed = JSON.parse(dados);
+  const dadosOrdenados = dadosParsed.sort(
+    (a, b) => Date.parse(b.data) - Date.parse(a.data)
+  );
+  return dadosOrdenados;
+};
+
+let receitas = recuperarDados();
 let filtrado = false;
 
 const diferData = (data) => {
@@ -14,8 +25,15 @@ const diferData = (data) => {
   return Math.floor((hoje - dataConv) / porDia);
 };
 
-const ordenarDados = (receitas) => {
-  return receitas.sort((a, b) => Date.parse(b.data) - Date.parse(a.data));
+const pagination = () => {
+  const markup = `
+  <div class="container__pagination">
+      <div class="pagination__esquerda"></div>
+      <div class="pagination__direita"></div>
+  </div>`;
+
+  const contReceitas = document.querySelector('.container__receitas');
+  contReceitas.insertAdjacentHTML('beforeend', markup);
 };
 
 const vista = (receita, data) => {
@@ -33,21 +51,22 @@ const vista = (receita, data) => {
   busca.insertAdjacentHTML('afterbegin', markup);
 };
 
-const renderReceitas = (receitasRecebidas) => {
-  ordenarDados(receitasRecebidas).map((receita) => {
+const renderReceitas = (receitasRecebidas, pagina = maxReceitas) => {
+  let receitasPag;
+  let paginationState = false;
+  if (receitasRecebidas.length > maxReceitas) {
+    receitasPag = receitasRecebidas.slice(0, maxReceitas);
+    console.log(receitasPag);
+  } else {
+    receitasPag = receitasRecebidas;
+  }
+
+  receitasPag.map((receita) => {
     const [dataString] = receita.data;
-    const html = vista(receita.nome, dataString);
+    vista(receita.nome, dataString);
   });
+  !paginationState && pagination();
 };
-
-const recuperarDados = () => {
-  const dados = localStorage.getItem('receitas');
-  if (!dados) return;
-
-  const dadosParsed = JSON.parse(dados);
-  receitas = dadosParsed;
-};
-recuperarDados();
 
 const filtrar = (evento) => {
   const receitasFiltradas = receitas.filter((receita) => {
@@ -58,14 +77,11 @@ const filtrar = (evento) => {
 
   renderReceitas(receitasFiltradas);
 };
-const filtrarEstado = (evento) => {
-  filtrado = evento.target.value;
-};
-campoBusca.addEventListener('input', filtrar);
 
 if (receitas.length === 0) {
   const divContent = `<div class="card__siblings">Não há dados armazenados</div>`;
   busca.insertAdjacentHTML('afterend', divContent);
 }
-// receitas && filtrado && renderReceitas(filtrado);
+
+campoBusca.addEventListener('input', filtrar);
 receitas && !filtrado && renderReceitas(receitas);
