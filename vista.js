@@ -1,39 +1,30 @@
+import State from './state.js';
+
 const busca = document.querySelector('.container__receitas');
 const campoBusca = document.querySelector('.card__busca');
 const containerReceitas = document.querySelector('.container__receitas');
-const maxReceitas = 5;
-const paginaAtual = 1;
+const containerPag = document.querySelector('.container__pagination');
+const pagDireita = document.querySelector('.pagination__direita');
+const pagEsquerda = document.querySelector('.pagination__esquerda');
 
-const recuperarDados = () => {
-  const dados = localStorage.getItem('receitas');
-  if (!dados) return [];
+const maxReceitas = 4;
+let paginaAtual = 1;
 
-  const dadosParsed = JSON.parse(dados);
-  const dadosOrdenados = dadosParsed.sort(
-    (a, b) => Date.parse(b.data) - Date.parse(a.data)
-  );
-  return dadosOrdenados;
-};
+// 1. paginacao
+// 2. botão de voltar
+// 3. editar receita
+// 4. adicionar nova data
+// 5. backend
 
-let receitas = recuperarDados();
+let receitas = State.recuperarDados();
 let filtrado = false;
+let receitasPag = false;
 
 const diferData = (data) => {
   const porDia = 1000 * 60 * 60 * 24;
   const dataConv = Date.parse(data);
   const hoje = new Date();
   return Math.floor((hoje - dataConv) / porDia);
-};
-
-const pagination = () => {
-  const markup = `
-  <div class="container__pagination">
-      <div class="pagination__esquerda"></div>
-      <div class="pagination__direita"></div>
-  </div>`;
-
-  const contReceitas = document.querySelector('.container__receitas');
-  contReceitas.insertAdjacentHTML('beforeend', markup);
 };
 
 const vista = (receita, data) => {
@@ -51,31 +42,80 @@ const vista = (receita, data) => {
   busca.insertAdjacentHTML('afterbegin', markup);
 };
 
-const renderReceitas = (receitasRecebidas, pagina = maxReceitas) => {
-  let receitasPag;
+const avalPagin = (receitas, pagina) => {
   let paginationState = false;
-  if (receitasRecebidas.length > maxReceitas) {
-    receitasPag = receitasRecebidas.slice(0, maxReceitas);
-    console.log(receitasPag);
+  const inicio = (pagina - 1) * maxReceitas;
+  const fim = pagina * maxReceitas;
+
+  if (receitas.length > maxReceitas) {
+    receitasPag = receitas.slice(inicio, fim);
+    paginationState = true;
   } else {
-    receitasPag = receitasRecebidas;
+    receitasPag = receitas;
   }
 
-  receitasPag.map((receita) => {
+  return {
+    receitasPorPagina: receitasPag,
+    paginationState: paginationState,
+  };
+};
+
+const pagination = (pagina, numeroPaginas) => {
+  State.atualizarPagina(pagina);
+  containerPag.classList.remove('hidden');
+
+  if (pagina <= 1) {
+    pagDireita.innerHTML = '';
+    pagDireita.insertAdjacentText('afterbegin', `página ${pagina + 1}`);
+    pagEsquerda.innerHTML = '';
+  } else if (pagina === numeroPaginas) {
+    pagEsquerda.insertAdjacentText('afterbegin', `página ${pagina - 1}`);
+    pagDireita.innerHTML = '';
+  } else {
+    pagDireita.insertAdjacentText('afterbegin', `página ${pagina + 1}`);
+    pagEsquerda.insertAdjacentText('afterbegin', `página ${pagina - 1}`);
+  }
+};
+
+const renderReceitas = (receitas, pagina = paginaAtual) => {
+  const numeroPaginas = Math.ceil(receitas.length / maxReceitas);
+  if (pagina > numeroPaginas) return;
+
+  const { receitasPorPagina: receitasNovo, paginationState } = avalPagin(
+    receitas,
+    pagina
+  );
+
+  const receitasInvertidas = [...receitasNovo].reverse();
+
+  containerReceitas.innerHTML = '';
+  receitasInvertidas.map((receita) => {
     const [dataString] = receita.data;
     vista(receita.nome, dataString);
   });
-  !paginationState && pagination();
+  paginationState && pagination(pagina, numeroPaginas);
 };
 
 const filtrar = (evento) => {
   const receitasFiltradas = receitas.filter((receita) => {
     return receita.nome.includes(evento.target.value);
   });
-  if (!evento.target.value) filtrado = false;
   containerReceitas.innerHTML = '';
 
-  renderReceitas(receitasFiltradas);
+  if (!evento.target.value) {
+    filtrado = false;
+    renderReceitas(receitas);
+  } else {
+    filtrado = true;
+    renderReceitas(receitasFiltradas);
+  }
+};
+
+const passarPagina = (pagina) => {
+  const atual = State.pagina();
+  pagina === 'direita'
+    ? renderReceitas(receitas, atual + 1)
+    : renderReceitas(receitas, atual - 1);
 };
 
 if (receitas.length === 0) {
@@ -83,5 +123,7 @@ if (receitas.length === 0) {
   busca.insertAdjacentHTML('afterend', divContent);
 }
 
+pagDireita.addEventListener('click', passarPagina.bind(null, 'direita'));
+pagEsquerda.addEventListener('click', passarPagina.bind(null, 'esquerda'));
 campoBusca.addEventListener('input', filtrar);
 receitas && !filtrado && renderReceitas(receitas);
