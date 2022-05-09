@@ -16,7 +16,7 @@ const filtrar = (evento) => {
   const receitasFiltradas = receitas.filter((receita) => {
     return receita.nome.includes(evento.target.value);
   });
-  Vista.containerReceitas.innerHTML = '';
+  Vista.busca.innerHTML = '';
 
   if (!evento.target.value) {
     filtrado = false;

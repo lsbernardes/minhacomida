@@ -107,6 +107,15 @@ body {
   min-height: 70vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 5;
+  padding: 1rem;
+}
+.receita__card {
+  position: relative;
+  z-index: 100;
+  padding: 0.7rem;
+  margin: 2rem auto;
+  width: 50rem;
+  max-width: 95%;
 }
 .box {
   position: absolute;

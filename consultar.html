@@ -24,7 +24,7 @@
     </div>
 
     <div class="container">
-        <div class="card">
+        <div class="card main">
             <input type="text" class="busca__texto card__busca card__siblings" placeholder="buscar">
             <div class="container__receitas">
             </div>
@@ -37,29 +37,10 @@
       </div>
     </div>
 
-    <div class="box hidden">
-      <span class="close">&times;</span>
-      <h2>Adicionar refeição</h2>
-      <div class="box-add">
-        <form action="" class="form">
-          <input type="text" class="nome" placeholder="Nome da receita" />
-          <br />
-          <input type="date" class="data" placeholder="data" />
-          <br />
-          <textarea
-            name=""
-            id=""
-            class="comentario"
-            placeholder="Receita, comentário ou observação"
-          ></textarea
-          ><br />
-          <input type="submit" class="submit" value="Adicionar" />
-          <div class="alert hidden">Refeição adicionada!</div>
-        </form>
-      </div>
+    <div class="overlay hidden">
+      <div class="card receita__card hidden"></div>
     </div>
-
-    <div class="overlay hidden"></div>
+    
     <!-- <script src="datepicker.min.js"></script> -->
   </body>
 </html>
