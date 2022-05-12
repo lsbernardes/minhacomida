@@ -18,12 +18,12 @@
   <body>
     <div class="nav">
       <h1>
-        <img src="2515183.png" alt="Minha Comida" width="38" height="38" />
+        <img src="./src/img/2515183.png" alt="Minha Comida" width="38" height="38" />
         <a href="index.html" class="href">Minha Comida</a>
       </h1>
     </div>
 
-    <div class="container">
+    <div class="index">
       <div class="card__main">
         <h2>Escolha uma opção:</h2>
         <div class="group">
@@ -55,7 +55,22 @@
       </div>
     </div>
 
-    <div class="overlay hidden"></div>
-    <!-- <script src="datepicker.min.js"></script> -->
+    <div class="container hidden">
+      <div class="card main">
+          <input type="text" class="busca__texto card__busca card__siblings" placeholder="buscar">
+          <div class="container__receitas">
+          </div>
+          <div class="container__pagination hidden">
+            <div class="pagination__esquerda"></div>
+            <div class="pagination__direita"></div>
+        </div>
+          <!-- <div class="card__campo card__siblings">campo</div> -->
+      </div>
+    </div>
+  </div>
+
+    <div class="card receita__card hidden"></div>
+    <div class="overlay__card hidden">
+    <!-- <div class="overlay hidden"></div> -->
   </body>
 </html>

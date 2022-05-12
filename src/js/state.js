@@ -6,6 +6,7 @@ class State {
     this.receitas = this.recuperarDados();
     this.atualizarPagina();
   }
+
   atualizarPagina(paginaAtualizada = this.paginaAtual) {
     if (!paginaAtualizada) return;
     const dados = {
