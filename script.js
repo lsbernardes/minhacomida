@@ -37,7 +37,8 @@ adicionar.addEventListener('click', abrirModal);
 closeBtn.addEventListener('click', fecharModal);
 overlay.addEventListener('click', fecharModal);
 consultar.addEventListener('click', abrirConsulta);
-submit.addEventListener('click', () => {
+submit.addEventListener('click', (evento) => {
+  evento.preventDefault();
   const item = {
     id: Math.round(Math.random() * 1000),
     nome: nome.value,
