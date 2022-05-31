@@ -1,5 +1,5 @@
 import Pagination from './pagination.js';
-import State from './state.js'
+import State from './state.js';
 
 class Vista {
   paginaAtual = 1;
@@ -18,7 +18,7 @@ class Vista {
       this.container.classList.remove('hidden');
       this.receitaCard.classList.add('hidden');
       this.overlay.classList.add('hidden');
-    })
+    });
   }
 
   diferData(data) {
@@ -69,17 +69,18 @@ class Vista {
     this.receitaCard.classList.remove('hidden', 'box');
     this.overlay.classList.remove('hidden');
 
-    const [receita] = State.receitas.filter(receita => {
-      if (receita.id == id ) return receita
+    const [receita] = State.receitas.filter((receita) => {
+      if (receita.id == id) return receita;
     });
     const { nome, data, comentario } = receita;
     const markup = `
     <div class="receita__dados">
-      <div class="header"> <h2> ${nome} </h2><div><div class="data">${data}</div>
-      <div class="coment">${comentario}<div>
-    </div>`
+      <div class="header"> <h2> ${nome} </h2><div>
+      <div class="data">${data}</div>
+      <div class="coment"> <textarea>${comentario}</textarea> </div>
+    </div>`;
 
-    this.receitaCard.innerHTML = markup
+    this.receitaCard.innerHTML = markup;
   }
 }
 
