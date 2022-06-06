@@ -1,5 +1,7 @@
 import Pagination from './pagination.js';
-import State from './state.js';
+import { state } from './state.js';
+
+await state.recuperarDados();
 
 class Vista {
   paginaAtual = 1;
@@ -43,19 +45,21 @@ class Vista {
     this.busca.insertAdjacentHTML('afterbegin', markup);
   }
 
-  renderReceitas(receitas, pagina = this.paginaAtual) {
+  async renderReceitas(receitas, pagina = this.paginaAtual) {
     const numeroPaginas = Math.ceil(receitas.length / Pagination.maxReceitas);
     if (pagina > numeroPaginas) return;
 
-    const { receitasPorPagina: receitasNovo, paginationState } =
-      Pagination.avalPagin(receitas, pagina);
+    const { receitasPorPagina, paginationState } = Pagination.avalPagin(
+      receitas,
+      pagina
+    );
 
-    const receitasInvertidas = [...receitasNovo].reverse();
+    const receitasInvertidas = [...receitasPorPagina].reverse();
 
     this.busca.innerHTML = '';
     receitasInvertidas.map((receita) => {
       const [dataString] = receita.data;
-      this.vista(receita.nome, dataString, receita.id);
+      this.vista(receita.nome, dataString, receita._id);
     });
     !paginationState && this.containerPag.classList.add('hidden');
     paginationState && Pagination.pagination(pagina, numeroPaginas);
@@ -69,8 +73,9 @@ class Vista {
     this.receitaCard.classList.remove('hidden', 'box');
     this.overlay.classList.remove('hidden');
 
-    const [receita] = State.receitas.filter((receita) => {
-      if (receita.id == id) return receita;
+    console.log(state);
+    const [receita] = state.receitas.filter((receita) => {
+      if (receita._id == id) return receita;
     });
     const { nome, data, comentario } = receita;
     const markup = `
@@ -84,4 +89,5 @@ class Vista {
   }
 }
 
-export default new Vista();
+const vista = new Vista();
+export { vista };

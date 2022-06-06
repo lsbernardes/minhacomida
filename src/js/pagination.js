@@ -1,4 +1,4 @@
-import State from './state.js';
+import { state as state } from './state.js';
 
 class Pagination {
   maxReceitas = 4;
@@ -27,7 +27,7 @@ class Pagination {
   }
 
   pagination(pagina, numeroPaginas) {
-    State.atualizarPagina(pagina);
+    state.atualizarPagina(pagina);
     this.containerPag.classList.remove('hidden');
 
     if (pagina <= 1) {

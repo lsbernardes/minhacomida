@@ -9,6 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "live-server": "^1.1.0"
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "live-server": "^1.1.0",
+    "moongose": "^1.0.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.16"
   }
 }

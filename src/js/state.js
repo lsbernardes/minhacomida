@@ -1,9 +1,17 @@
+const fetchHandler = async (url, post = false) => {
+  const res = !post
+    ? await fetch(url, { mode: 'cors' })
+    : await fetch(url, post);
+  const data = await res.json();
+  return data;
+};
+
 class State {
   paginaAtual = 1;
-  receitas = '';
+  receitas = [];
 
   constructor() {
-    this.receitas = this.recuperarDados();
+    this.recuperarDados();
     this.atualizarPagina();
   }
 
@@ -23,16 +31,31 @@ class State {
     return pag;
   }
 
-  recuperarDados() {
-    const dados = localStorage.getItem('receitas');
+  async recuperarDados() {
+    // const dados = localStorage.getItem('receitas');
+    const dados = await fetchHandler('http://127.0.0.1:3000/api/v1/receita');
     if (!dados) return [];
 
-    const dadosParsed = JSON.parse(dados);
+    const dadosParsed = await dados.data.receita;
     const dadosOrdenados = dadosParsed.sort(
       (a, b) => Date.parse(a.data) - Date.parse(b.data)
     );
-    return dadosOrdenados;
+    this.receitas = dadosOrdenados;
+    return { dadosOrdenados, receitas: this.receitas };
+  }
+
+  async enviarReceita(item) {
+    const res = await fetch('http://127.0.0.1:3000/api/v1/receita', {
+      method: 'POST',
+      mode: 'cors',
+      body: item,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await res.json();
+    await this.recuperarDados();
   }
 }
 
-export default new State();
+export const state = new State();

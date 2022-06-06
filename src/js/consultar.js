@@ -1,10 +1,11 @@
-import State from './state.js';
+// import { state, vista } from './state.js';
 import Pagination from './pagination.js';
-import Vista from './vista.js';
+import { vista } from './vista.js';
+import { state } from './state.js';
 
 class Consultar {
   campoBusca = document.querySelector('.card__busca');
-  receitas = State.recuperarDados();
+  receitas = state.receitas;
   filtrado = false;
   passarBind = this.passarPagina.bind(this);
 
@@ -15,11 +16,11 @@ class Consultar {
 
   constructor() {
     this.campoBusca.addEventListener('input', this.filtrar.bind(this));
-    this.receitas && !this.filtrado && Vista.renderReceitas(this.receitas);
+    this.receitas && !this.filtrado && vista.renderReceitas(this.receitas);
 
     if (this.receitas.length === 0) {
       const divContent = `<div class="card__siblings">Não há dados armazenados</div>`;
-      Vista.busca.insertAdjacentHTML('afterend', divContent);
+      vista.busca.insertAdjacentHTML('afterend', divContent);
     }
 
     Pagination.pagDireita.addEventListener(
@@ -36,22 +37,22 @@ class Consultar {
     const receitasFiltradas = this.receitas.filter((receita) => {
       return receita.nome.includes(evento.target.value);
     });
-    Vista.busca.innerHTML = '';
+    vista.busca.innerHTML = '';
 
     if (!evento.target.value) {
       this.filtrado = false;
-      Vista.renderReceitas(this.receitas);
+      vista.renderReceitas(this.receitas);
     } else {
       this.filtrado = true;
-      Vista.renderReceitas(receitasFiltradas);
+      vista.renderReceitas(receitasFiltradas);
     }
   }
 
   passarPagina(pagina) {
     const atual = State.pagina();
     pagina === 'direita'
-      ? Vista.renderReceitas(this.receitas, atual + 1)
-      : Vista.renderReceitas(this.receitas, atual - 1);
+      ? vista.renderReceitas(this.receitas, atual + 1)
+      : vista.renderReceitas(this.receitas, atual - 1);
   }
 }
 

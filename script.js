@@ -1,4 +1,4 @@
-import State from './src/js/state.js';
+import { state } from './src/js/state.js';
 import Consultar from './src/js/consultar.js';
 
 const overlay = document.querySelector('.overlay__card');
@@ -33,6 +33,16 @@ const abrirConsulta = (evento) => {
   containerConsultar.classList.remove('hidden');
 };
 
+const enviarReceita = async (item) => {
+  const res = await fetch('http://127.0.0.1:3000/api/v1/receita', {
+    method: 'POST',
+    mode: crossOriginIsolated,
+    body: item,
+  });
+  const data = res.json();
+  console.log(data);
+};
+
 adicionar.addEventListener('click', abrirModal);
 closeBtn.addEventListener('click', fecharModal);
 overlay.addEventListener('click', fecharModal);
@@ -40,19 +50,20 @@ consultar.addEventListener('click', abrirConsulta);
 submit.addEventListener('click', (evento) => {
   evento.preventDefault();
   const item = {
-    id: Math.round(Math.random() * 1000),
+    // id: Math.round(Math.random() * 1000),
     nome: nome.value,
-    data: [data.value],
+    data: Date.parse(data.value),
     comentario: comentario.value,
   };
-  State.receitas.push(item);
-  console.log(item);
+  state.receitas.push(item);
 
   nome.value = '';
   data.valueAsDate = new Date();
   comentario.value = '';
   alerta.classList.remove('hidden');
-  localStorage.setItem('receitas', JSON.stringify(State.receitas));
+  console.log(item);
+  state.enviarReceita(JSON.stringify(item));
+  // localStorage.setItem('receitas', );
 
   setTimeout(() => {
     alerta.classList.add('hidden');
